@@ -1,5 +1,6 @@
 import 'dotenv/config';
 import cron from 'node-cron';
+import express from 'express';
 import { scrapeProducts } from './scraper.js';
 import { sendProductList, sendChanges, sendSimpleMessage } from './telegram.js';
 import { loadProducts, saveProducts, compareProducts, logScan, logPriceChanges } from './storage.js';
@@ -122,3 +123,20 @@ cron.schedule('0 8,20 * * *', () => {
 });
 
 console.log('🟢 Cron agendado. Processo rodando...');
+
+// Servidor Web básico para o Render não desligar o serviço imediatamente
+const app = express();
+app.get('/', (req, res) => {
+  res.send('BuscaOn - Bot de scraping On Running rodando! 🚀');
+});
+
+// Endpoint opcional para gatilho manual
+app.get('/scrape-now', (req, res) => {
+  res.send('Scraping disparado em background!');
+  runCheck();
+});
+
+const port = process.env.PORT || 3000;
+app.listen(port, () => {
+  console.log(`🌐 Servidor web escutando na porta ${port}`);
+});
