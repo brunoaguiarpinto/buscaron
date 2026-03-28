@@ -1,0 +1,17 @@
+{
+  "name": "buscaon",
+  "version": "1.0.0",
+  "description": "Monitoramento de tênis On Running com notificações via Telegram",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "node src/index.js",
+    "scrape": "node src/run-once.js"
+  },
+  "type": "module",
+  "dependencies": {
+    "@supabase/supabase-js": "^2.100.1",
+    "dotenv": "^16.4.7",
+    "node-cron": "^3.0.3",
+    "puppeteer": "^24.4.0"
+  }
+}
